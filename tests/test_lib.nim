@@ -1,7 +1,7 @@
-import unittest
+import unittest, strutils
 import expect
 
-test "expects":
+test "don't raise exceptions when assertion is valid":
   expectTrue(1 == 1)
   expectFalse(1 == 2)
   expectEqual(1, 1)
@@ -15,3 +15,66 @@ test "expects":
   expectGreaterThanEqual(1, 1)
   expectGreaterThanEqual(2, 1)
   expectGreaterThanEqual(2, 1)
+
+test "raise exceptions when assertion is invalid":
+  try:
+    expectTrue(1 == 2)
+    assert false
+  except ExpectAssertionError:
+    discard
+  try:
+    expectFalse(1 == 1)
+    assert false
+  except ExpectAssertionError:
+    discard
+  try:
+    expectEqual(1, 2)
+    assert false
+  except ExpectAssertionError:
+    discard
+  try:
+    expectNotEqual(1, 1)
+    assert false
+  except ExpectAssertionError:
+    discard
+  try:
+    expectStringEqual(1, "2")
+    assert false
+  except ExpectAssertionError:
+    discard
+  try:
+    expectStringNotEqual(1, "1")
+    assert false
+  except ExpectAssertionError:
+    discard
+  try:
+    expectLessThan(2, 1)
+    assert false
+  except ExpectAssertionError:
+    discard
+  try:
+    expectLessThanEqual(3, 2)
+    assert false
+  except ExpectAssertionError:
+    discard
+  try:
+    expectGreaterThan(1, 2)
+    assert false
+  except ExpectAssertionError:
+    discard
+  try:
+    expectGreaterThanEqual(1, 2)
+    assert false
+  except ExpectAssertionError:
+    discard
+
+test "assertions contain correct text":
+  try:
+    expectTrue(1 == 2)
+  except ExpectAssertionError:
+    let expected = """===== Expect Error =====
+Left: false, right: true
+Checked for: is true
+========================
+"""
+    assert getCurrentExceptionMsg().strip() == expected.strip()
