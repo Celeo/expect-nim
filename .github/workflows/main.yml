@@ -1,0 +1,15 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Setup Nim environment
+      uses: jiro4989/setup-nim-action@v1.0.1
+      with:
+        nim-version: stable
+    - uses: actions/checkout@v1
+    - run: |
+        nimble test
