@@ -1,7 +1,7 @@
 import strformat
 
 type
-  ExpectAssertionError* = object of Exception
+  ExpectError* = object of Exception
 
   ExpectType = enum
     etTrue = "is true"
@@ -21,41 +21,41 @@ proc message(t: ExpectType, a: auto, b: auto): string =
 proc expectTrue*(a: bool) =
   let b = true
   if a != b:
-    raise newException(ExpectAssertionError, message(etTrue, a, true))
+    raise newException(ExpectError, message(etTrue, a, true))
 
 proc expectFalse*(a: bool) =
   let b = false
   if a != b:
-    raise newException(ExpectAssertionError, message(etFalse, a, false))
+    raise newException(ExpectError, message(etFalse, a, false))
 
 proc expectEqual*(a, b: auto) =
   if a != b:
-    raise newException(ExpectAssertionError, message(etEqual, a, b))
+    raise newException(ExpectError, message(etEqual, a, b))
 
 proc expectNotEqual*(a, b: auto) =
   if a == b:
-    raise newException(ExpectAssertionError, message(etNotEqual, a, b))
+    raise newException(ExpectError, message(etNotEqual, a, b))
 
 proc expectStringEqual*(a, b: auto) =
   if $a != $b:
-    raise newException(ExpectAssertionError, message(etStringEqual, $a, $b))
+    raise newException(ExpectError, message(etStringEqual, $a, $b))
 
 proc expectStringNotEqual*(a, b: auto) =
   if $a == $b:
-    raise newException(ExpectAssertionError, message(etStringNotEqual, $a, $b))
+    raise newException(ExpectError, message(etStringNotEqual, $a, $b))
 
 proc expectLessThan*(a, b: SomeNumber) =
   if a >= b:
-    raise newException(ExpectAssertionError, message(etLessThan, a, b))
+    raise newException(ExpectError, message(etLessThan, a, b))
 
 proc expectLessThanEqual*(a, b: SomeNumber) =
   if a > b:
-    raise newException(ExpectAssertionError, message(etLessThanEqual, a, b))
+    raise newException(ExpectError, message(etLessThanEqual, a, b))
 
 proc expectGreaterThan*(a, b: SomeNumber) =
   if a <= b:
-    raise newException(ExpectAssertionError, message(etGreaterThan, a, b))
+    raise newException(ExpectError, message(etGreaterThan, a, b))
 
 proc expectGreaterThanEqual*(a, b: SomeNumber) =
   if a < b:
-    raise newException(ExpectAssertionError, message(etGreaterThanEqual, a, b))
+    raise newException(ExpectError, message(etGreaterThanEqual, a, b))

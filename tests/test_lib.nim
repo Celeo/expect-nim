@@ -20,58 +20,58 @@ test "raise exceptions when assertion is invalid":
   try:
     expectTrue(1 == 2)
     assert false
-  except ExpectAssertionError:
+  except ExpectError:
     discard
   try:
     expectFalse(1 == 1)
     assert false
-  except ExpectAssertionError:
+  except ExpectError:
     discard
   try:
     expectEqual(1, 2)
     assert false
-  except ExpectAssertionError:
+  except ExpectError:
     discard
   try:
     expectNotEqual(1, 1)
     assert false
-  except ExpectAssertionError:
+  except ExpectError:
     discard
   try:
     expectStringEqual(1, "2")
     assert false
-  except ExpectAssertionError:
+  except ExpectError:
     discard
   try:
     expectStringNotEqual(1, "1")
     assert false
-  except ExpectAssertionError:
+  except ExpectError:
     discard
   try:
     expectLessThan(2, 1)
     assert false
-  except ExpectAssertionError:
+  except ExpectError:
     discard
   try:
     expectLessThanEqual(3, 2)
     assert false
-  except ExpectAssertionError:
+  except ExpectError:
     discard
   try:
     expectGreaterThan(1, 2)
     assert false
-  except ExpectAssertionError:
+  except ExpectError:
     discard
   try:
     expectGreaterThanEqual(1, 2)
     assert false
-  except ExpectAssertionError:
+  except ExpectError:
     discard
 
 test "assertions contain correct text":
   try:
     expectTrue(1 == 2)
-  except ExpectAssertionError:
+  except ExpectError:
     let expected = """===== Expect Error =====
 Left: false, right: true
 Checked for: is true
