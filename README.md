@@ -6,6 +6,6 @@
 
 1. Install with `nimble install https://github.com/celeo/expect-nim`
 1. Import with `import expect`
-1. Assert with `expect<what>(left, right)`
+1. Assert with `expect<what>(<args>)`
 
 See the source for the different assertions that are available.
